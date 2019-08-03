@@ -1,7 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import MailTypeSelect from 'components/mail-type-select';
+import EnvSelect from 'components/env-select';
 import EmailInput from 'components/email-input';
+import CustomDbClusterSelect from 'components/custom-db-cluster-select';
 import fetch from 'cross-fetch';
 import { connect } from 'react-redux';
 
@@ -15,10 +17,12 @@ class HomePage extends React.Component {
       abc: 'dsadsada',
       input: 'asd',
       list: [1, 2, 3, 'asd'],
-      select: '',
+      jobalertType: 'jobalert',
       isSelectValid: true,
       success: true,
       message: {},
+      env: 'staging',
+      cluster: 'demo-sa',
     }
   }
 
@@ -30,9 +34,21 @@ class HomePage extends React.Component {
     this.setState({ email: e.target.value });
   };
 
-  onSelectChange = (value) => {
+  onSelectChangeJobalertType = (value) => {
     this.setState({
-      select: value,
+      jobalertType: value,
+    });
+  };
+
+  onSelectChangeEnvironment = (value) => {
+    this.setState({
+      env: value,
+    });
+  };
+
+  onSelectChangeCluster = (value) => {
+    this.setState({
+      cluster: value,
     });
   };
 
@@ -40,7 +56,7 @@ class HomePage extends React.Component {
     e.preventDefault();
     this.setState({ isSelectValid: true });
 
-    if (!this.state.select) {
+    if (!this.state.jobalertType) {
       return this.setState({ isSelectValid: false });
     }
 
@@ -48,7 +64,9 @@ class HomePage extends React.Component {
       method: 'POST',
       body: JSON.stringify({
         email: this.state.email,
-        jobalertType : this.state.select,
+        jobalertType : this.state.jobalertType,
+        env: this.state.env,
+        cluster: this.state.cluster,
       }),
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -75,7 +93,7 @@ class HomePage extends React.Component {
         <form onSubmit={ this.onSubmit }>
           <div className={ `select-container ${ this.state.isSelectValid ? '' : 'invalid' }` }>
             <MailTypeSelect
-              onChange={ this.onSelectChange }
+              onChange={ this.onSelectChangeJobalertType }
             />
           </div>
           <div className='email-container'>
@@ -84,9 +102,14 @@ class HomePage extends React.Component {
               onChange={ this.onEmailInputChange }
             />
           </div>
-          <div className={ `select-container ${ this.state.isSelectValid ? '' : 'invalid' }` }>
-            <MailTypeSelect
-              onChange={ this.onSelectChange }
+          <div className='env-select-container'>
+            <EnvSelect
+              onChange={ this.onSelectChangeEnvironment }
+            />
+          </div>
+          <div className='custom-db-cluster-select-container'>
+            <CustomDbClusterSelect
+              onChange={ this.onSelectChangeCluster }
             />
           </div>
           <input type='submit'/>
