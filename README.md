@@ -1,1 +1,4 @@
-# react-base
+```
+npm install
+nodemon index.js
+```

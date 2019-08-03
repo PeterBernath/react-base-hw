@@ -1,0 +1,21 @@
+@import "./variables";
+
+.main-page {
+  display: flex;
+  flex-direction: column;
+  background-color: @main-bg-color;
+
+  .select-container {
+    &.invalid {
+      background-color: red;
+    }
+  }
+
+  .email-container {
+  }
+
+  .fancy-font {
+    .font-setting();
+  }
+};
+
