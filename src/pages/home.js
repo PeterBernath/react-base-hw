@@ -6,6 +6,7 @@ import EmailInput from 'components/email-input';
 import CustomDbClusterSelect from 'components/custom-db-cluster-select';
 import fetch from 'cross-fetch';
 import { connect } from 'react-redux';
+import './style.less';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -85,6 +86,7 @@ class HomePage extends React.Component {
   render() {
     return (
       <div className='main-page' >
+        <div className='api-header'>Lensa Testing API</div>
         { !this.state.success &&
           <div>
             { Object.values(this.state.message) }
@@ -92,9 +94,11 @@ class HomePage extends React.Component {
         }
         <form onSubmit={ this.onSubmit }>
           <div className={ `select-container ${ this.state.isSelectValid ? '' : 'invalid' }` }>
-            <MailTypeSelect
-              onChange={ this.onSelectChangeJobalertType }
-            />
+            <div class="select_join">
+              <MailTypeSelect
+                onChange={ this.onSelectChangeJobalertType }
+              />
+            </div>
           </div>
           <div className='email-container'>
             <EmailInput
@@ -103,14 +107,18 @@ class HomePage extends React.Component {
             />
           </div>
           <div className='env-select-container'>
-            <EnvSelect
-              onChange={ this.onSelectChangeEnvironment }
-            />
+            <div class="select_join">
+              <EnvSelect
+                onChange={ this.onSelectChangeEnvironment }
+              />
+            </div>
           </div>
           <div className='custom-db-cluster-select-container'>
-            <CustomDbClusterSelect
-              onChange={ this.onSelectChangeCluster }
-            />
+            <div class="select_join">
+              <CustomDbClusterSelect
+                onChange={ this.onSelectChangeCluster }
+              />
+            </div>
           </div>
           <input type='submit'/>
         </form>
