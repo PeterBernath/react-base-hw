@@ -6,7 +6,7 @@ import EmailInput from 'components/email-input';
 import CustomDbClusterSelect from 'components/custom-db-cluster-select';
 import fetch from 'cross-fetch';
 import { connect } from 'react-redux';
-import './style.less';
+import '../components/style.less';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -45,6 +45,7 @@ class HomePage extends React.Component {
     this.setState({
       env: value,
     });
+    console.log(this.state.env)
   };
 
   onSelectChangeCluster = (value) => {
@@ -94,11 +95,9 @@ class HomePage extends React.Component {
         }
         <form onSubmit={ this.onSubmit }>
           <div className={ `select-container ${ this.state.isSelectValid ? '' : 'invalid' }` }>
-            <div class="select_join">
-              <MailTypeSelect
-                onChange={ this.onSelectChangeJobalertType }
-              />
-            </div>
+            <MailTypeSelect
+              onChange={ this.onSelectChangeJobalertType }
+            />
           </div>
           <div className='email-container'>
             <EmailInput
@@ -107,18 +106,14 @@ class HomePage extends React.Component {
             />
           </div>
           <div className='env-select-container'>
-            <div class="select_join">
-              <EnvSelect
-                onChange={ this.onSelectChangeEnvironment }
-              />
-            </div>
+            <EnvSelect
+              onChange={ this.onSelectChangeEnvironment }
+            />
           </div>
-          <div className='custom-db-cluster-select-container'>
-            <div class="select_join">
-              <CustomDbClusterSelect
-                onChange={ this.onSelectChangeCluster }
-              />
-            </div>
+          <div className={ `custom-db-cluster-select-container ${ 'staging' == this.state.env ? 'hidden' : '' }`}>
+            <CustomDbClusterSelect
+              onChange={ this.onSelectChangeCluster }
+            />
           </div>
           <input type='submit'/>
         </form>

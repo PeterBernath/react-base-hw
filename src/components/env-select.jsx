@@ -19,13 +19,15 @@ export default class EnvSelect extends React.Component {
   render() {
 
     return (
-      <select className='custom-select' value={ this.state.env } onChange={ this.handleChange }>
-        { this.state.list.map((val) => {
-          return (
-            <option key={val} value={val}>{val}</option>
-          );
-        }) }
-      </select>
+      <div className='custom-select-container'>
+        <select className='custom-select' value={ this.state.env } onChange={ this.handleChange }>
+          { this.state.list.map((val) => {
+            return (
+              <option key={val} value={val}>{val}</option>
+            );
+          }) }
+        </select>
+      </div>
     );
   }
 };

@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './style.less';
+
 
 export default class CustomDbClusterSelect extends React.Component {
   constructor(props) {
@@ -19,13 +21,15 @@ export default class CustomDbClusterSelect extends React.Component {
   render() {
 
     return (
-      <select className='custom-select' value={ this.state.cluster } onChange={ this.handleChange }>
-        { this.state.list.map((val) => {
-          return (
-            <option key={val} value={val}>{val}</option>
-          );
-        }) }
-      </select>
+      <div className='custom-select-container'>
+        <select className='custom-select' value={ this.state.cluster } onChange={ this.handleChange }>
+          { this.state.list.map((val) => {
+            return (
+              <option key={val} value={val}>{val}</option>
+            );
+          }) }
+        </select>
+      </div>
     );
   }
 };
