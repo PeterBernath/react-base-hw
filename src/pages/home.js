@@ -110,12 +110,12 @@ class HomePage extends React.Component {
               onChange={ this.onSelectChangeEnvironment }
             />
           </div>
-          <div className={ `custom-db-cluster-select-container ${ 'staging' == this.state.env ? 'hidden' : '' }`}>
+          <div className={ `custom-db-cluster-select-container ${ 'production' == this.state.env ? 'hidden' : '' }`}>
             <CustomDbClusterSelect
               onChange={ this.onSelectChangeCluster }
             />
           </div>
-          <input type='submit'/>
+          <input className='submit-button' type='submit' value='SUBMIT'/>
         </form>
       </div>
     );

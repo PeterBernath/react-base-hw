@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const EmailInput = (props) => (
-  <input
-    placeholder='your@email.here'
+  <input className='custom-input'
+    placeholder='-- Insert your e-mail --'
     type='email'
     value={ props.value }
     onChange={ props.onChange }

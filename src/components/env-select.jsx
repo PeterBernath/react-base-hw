@@ -6,7 +6,7 @@ export default class EnvSelect extends React.Component {
     super(props);
 
     this.state = {
-      env: 'staging',
+      env: 'select_env',
       list: ['staging', 'production'],
     };
   }
@@ -21,6 +21,7 @@ export default class EnvSelect extends React.Component {
     return (
       <div className='custom-select-container'>
         <select className='custom-select' value={ this.state.env } onChange={ this.handleChange }>
+          <option key='default' value='select_env' disabled>-- Select environment --</option>
           { this.state.list.map((val) => {
             return (
               <option key={val} value={val}>{val}</option>
