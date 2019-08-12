@@ -1,12 +1,29 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import MailTypeSelect from 'components/mail-type-select';
-import EnvSelect from 'components/env-select';
+import CustomSelect from 'components/custom-select';
 import EmailInput from 'components/email-input';
-import CustomDbClusterSelect from 'components/custom-db-cluster-select';
 import fetch from 'cross-fetch';
 import { connect } from 'react-redux';
 import '../components/style.less';
+
+
+const defaultSelectTexts = {
+  mailType: '-- Select mail type --',
+  env: '-- Select environment --',
+  cluster: '-- Select demo cluster --',
+}
+
+const selectChoices = {
+  mailType: ['jobalert', 'aggregated', 'lensa24', 'push_jobalert', 'sms_jobalert'],
+  env: ['staging', 'production'],
+  cluster: ['demo-sa', 'demo-nw', 'demo-fp', 'demo-am', 'demo-vr']
+}
+
+const validateEmail = (email) => {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -18,12 +35,14 @@ class HomePage extends React.Component {
       abc: 'dsadsada',
       input: 'asd',
       list: [1, 2, 3, 'asd'],
-      jobalertType: 'jobalert',
+      jobalertType: null,
       isSelectValid: true,
       success: true,
       message: {},
-      env: 'staging',
-      cluster: 'demo-sa',
+      env: null,
+      cluster: null,
+      color: 'grey',
+      isFormValid: false,
     }
   }
 
@@ -32,6 +51,14 @@ class HomePage extends React.Component {
   }
 
   onEmailInputChange = (e) => {
+    if (validateEmail(e.target.value)) {
+      this.setState({ color: '#c0eb00' });
+      console.log(this.state.color)
+    } else {
+      this.setState({ color: '#ed9280' });
+      console.log(this.state.color)
+    }
+    console.log(validateEmail(e.target.value));
     this.setState({ email: e.target.value });
   };
 
@@ -76,11 +103,12 @@ class HomePage extends React.Component {
     })
       .then(res => res.json())
       .then(response => {
-        this.setState({
-          success: Boolean(response.success),
-          message: response,
-        });
-        console.log(response);
+        if ('object' === typeof(response[this.state.email])) {
+          alert(`Test e-mail of type ${this.state.jobalertType} sent successfully to e-mail address: ${response[this.state.email].email}`)
+        } else {
+          alert(response[this.state.email])
+        }
+        console.log(response[this.state.email]);
       });
   };
 
@@ -88,34 +116,49 @@ class HomePage extends React.Component {
     return (
       <div className='main-page' >
         <div className='api-header'>Lensa Testing API</div>
-        { !this.state.success &&
-          <div>
-            { Object.values(this.state.message) }
-          </div>
-        }
+        {/*{ !this.state.success &&*/}
+          {/*<div>*/}
+            {/*{ Object.values(this.state.message) }*/}
+          {/*</div>*/}
+        {/*}*/}
         <form onSubmit={ this.onSubmit }>
           <div className={ `select-container ${ this.state.isSelectValid ? '' : 'invalid' }` }>
-            <MailTypeSelect
+            <CustomSelect
+              selectId ='mail type'
               onChange={ this.onSelectChangeJobalertType }
+              defaultText={ defaultSelectTexts.mailType }
+              selectChoices={ selectChoices.mailType }
             />
           </div>
           <div className='email-container'>
             <EmailInput
               value={ this.state.email }
               onChange={ this.onEmailInputChange }
+              color={ this.state.color }
             />
           </div>
           <div className='env-select-container'>
-            <EnvSelect
+            <CustomSelect
+              selectId ='environment'
               onChange={ this.onSelectChangeEnvironment }
+              defaultText={ defaultSelectTexts.env }
+              selectChoices={ selectChoices.env }
             />
           </div>
           <div className={ `custom-db-cluster-select-container ${ 'production' == this.state.env ? 'hidden' : '' }`}>
-            <CustomDbClusterSelect
+            <CustomSelect
+              selectId ='cluster'
               onChange={ this.onSelectChangeCluster }
+              defaultText={ defaultSelectTexts.cluster }
+              selectChoices={ selectChoices.cluster }
             />
           </div>
-          <input className='submit-button' type='submit' value='SUBMIT'/>
+          {('#c0eb00' === this.state.color && 'production' === this.state.env && this.state.jobalertType) ||
+          ('#c0eb00' === this.state.color && 'staging' === this.state.env && this.state.jobalertType && this.state.cluster)? (
+            <input className='submit-button' type='submit' value='SUBMIT'/>
+          ) : (
+            <input className='submit-button' type='submit' value='SUBMIT' disabled/>
+          )}
         </form>
       </div>
     );

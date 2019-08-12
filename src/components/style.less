@@ -2,42 +2,25 @@
 
 .main-page {
   margin: 12% auto;
-  width: 250px;
+  width: 400px;
 }
 
 .api-header {
   font-family: 'Blinker', sans-serif;
-  font-size: 30px;
+  font-size: 50px;
   color: #658ab7;
   margin: 30px 0px;
 }
 
-.custom-select-container {
-  width: 240px;
-  height: 28px;
-  overflow: hidden;
-  background: url('https://res.cloudinary.com/berc0/image/upload/v1565361679/arrow_luo0e4.png') no-repeat 150px;
-  border: #FEFEFE 1px solid;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-box-shadow: inset 0px 0px 10px 1px blue;
-  box-shadow: inset 0px 0px 0px 1px grey;
-  margin: 10px 0px;
-}
-
 .custom-select-container select {
-  background: transparent;
   width: 240px;
-  font-size: 8pt;
-  color:grey;
-  border: 0;
-  border-radius: 0;
   height: 28px;
-  -webkit-appearance: none;
-}
-
-.custom-select-container select:focus {
-  outline: none;
+  background-color: white;
+  color: grey;
+  margin-bottom: 10px;
+  float: right;
+  margin-right: 70px;
+  font-size: 8pt;
 }
 
 .hidden {
@@ -45,15 +28,17 @@
 }
 
 .custom-input {
-  width: 234px;
+  width: 229px;
   height: 25px;
-  border: grey 1px solid;
+  border: #a8a8a8 1px solid;
   -webkit-border-radius: 2px;
-  border-radius: 2px;
+  border-radius: 5px;
   font-size: 8pt;
-  padding-left: 3px;
-  font-weight: 500;
-  margin-left: 1px;
+  padding-left: 8px;
+  margin-bottom: 10px;
+  float: right;
+  margin-right: 70px;
+  color: grey;
 }
 
 .submit-button {
@@ -62,7 +47,8 @@
   border: 3px solid #658ab7;
   border-radius: 5px;
   background-color: white;
-  margin: 30px 0px;
+  margin-top: 25px;
+  margin-left: 60px;
   cursor: pointer;
   color: #658ab7;
   font-family: 'Blinker', sans-serif;
@@ -72,4 +58,27 @@
 .submit-button:hover {
   background-color: #658ab7;
   color: #d3e4ff;
+}
+
+.submit-button:disabled {
+  background-color: #f8f8f8;
+  color: grey;
+  border: 3px solid grey;
+  cursor: none;
+}
+
+.select-label {
+  color: #658ab7;
+  font-family: 'Blinker', sans-serif;
+  font-size: 10px;
+  padding-left: 25px;
+  margin: 8px 0px 18px 0px;
+  float: left;
+}
+
+.invalid {
+  font-size: 7pt;
+  float: right;
+  margin-right: 70px;
+  color: #ed9280;
 }
