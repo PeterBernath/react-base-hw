@@ -19,7 +19,7 @@ export default class TestAPISelect extends React.Component {
 
     return (
       <div className='custom-select-container'>
-        <label for={ this.props.selectId } className='select-label'>{ this.props.selectId }</label>
+        <label htmlFor={ this.props.selectId } className='select-label'>{ this.props.selectId }</label>
         <select className='custom-select' id={ this.props.selectId } value={ this.state.select } onChange={ this.handleChange }>
           <option key='default_select' value='default_select' disabled>{ this.props.defaultText }</option>
           { this.props.selectChoices.map((val) => {

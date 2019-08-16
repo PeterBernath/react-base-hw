@@ -16,7 +16,7 @@ const EmailInput = (props) => {
   }
   return (
     <div>
-      <label for='email-input' className='select-label' style={ labelStyle }>{ text }</label>
+      <label htmlFor='email-input' className='select-label' style={ labelStyle }>{ text }</label>
       <input id='email-input' style={divStyle} className='custom-input'
              placeholder='-- Insert your e-mail --'
              type='email'

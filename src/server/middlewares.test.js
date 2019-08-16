@@ -1,30 +1,25 @@
 import middlewares from './middlewares';
-const todoList = require('./todo-list');
+import httpMocks from 'node-mocks-http';
 
-describe('middlewares iddleware', () => {
-  let req;
-  let res;
-  let next;
+describe('middleware getResponseFromTestingApi', () => {
 
-  beforeAll(() => {
-    console.log('--------------- 1');
-    res = {
-      json: jest.fn(),
-    };
-    next = jest.fn()
-  });
-
-  describe('sendTodoList', () => {
-    beforeAll(() => {
-      console.log('--------------- 2');
+  it('should send formatted body to testing api', (done) => {
+    fetch.resetMocks();
+    const req  = httpMocks.createRequest({
+      method: 'GET',
+      url: '/user/42',
+      body: {
+        jobalertType: 'jobalert',
+        email: 'test@test.test',
+        env: 'staging',
+        cluster: 'demo-sa',
+      }
     });
-
-    it('should send todoList', () => {
-      middlewares.sendTodoList(req, res, next);
-      expect(res.json).toHaveBeenCalled();
-      expect(res.json).toHaveBeenCalledWith(todoList);
-    })
-
+    const res = httpMocks.createResponse();
+    fetch.mockResponse(JSON.stringify({ json: '12345' }));
+    middlewares.getResponseFromTestingApi(req, res);
+    const data = res._getJSONData();
+    console.log(data);
   });
 
 });
