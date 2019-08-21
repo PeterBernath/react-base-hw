@@ -46,19 +46,12 @@ class HomePage extends React.Component {
     }
   }
 
-  componentDidMount() {
-    console.log('didmount', this.props.prop1);
-  }
-
   onEmailInputChange = (e) => {
     if (validateEmail(e.target.value)) {
       this.setState({ color: '#c0eb00' });
-      console.log(this.state.color)
     } else {
       this.setState({ color: '#ed9280' });
-      console.log(this.state.color)
     }
-    console.log(validateEmail(e.target.value));
     this.setState({ email: e.target.value });
   };
 
@@ -72,7 +65,6 @@ class HomePage extends React.Component {
     this.setState({
       env: value,
     });
-    console.log(this.state.env)
   };
 
   onSelectChangeCluster = (value) => {
@@ -108,7 +100,6 @@ class HomePage extends React.Component {
         } else {
           alert(response[this.state.email])
         }
-        console.log(response[this.state.email]);
       });
   };
 
@@ -116,11 +107,6 @@ class HomePage extends React.Component {
     return (
       <div className='main-page' >
         <div className='api-header'>Lensa Testing API</div>
-        {/*{ !this.state.success &&*/}
-          {/*<div>*/}
-            {/*{ Object.values(this.state.message) }*/}
-          {/*</div>*/}
-        {/*}*/}
         <form onSubmit={ this.onSubmit }>
           <div className={ `select-container ${ this.state.isSelectValid ? '' : 'invalid' }` }>
             <CustomSelect

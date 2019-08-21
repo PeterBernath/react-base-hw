@@ -9,12 +9,10 @@ import * as actions from 'utils/actions';
 const express = require('express');
 const app = express();
 const port = 7000;
-const todoRouter = require('./routes.js');
 const bodyParser = require('body-parser');
 const middlewares = require('./middlewares');
 
 app.use(bodyParser.json());
-app.use(todoRouter);
 
 app.use('/assets', express.static('build/assets'));
 
